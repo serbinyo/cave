@@ -101,6 +101,7 @@ RUN set -eux; \
 # copy sources
 COPY --link  . ./
 RUN rm -Rf docker/
+RUN chmod +x bin/console
 
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
