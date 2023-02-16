@@ -67,7 +67,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
       POSTGRES_USER: ${POSTGRES_USER:-app}
     ports:
-      - "5432"
+      - "32774:5432"
 ###< doctrine/doctrine-bundle ###
 
 volumes:
