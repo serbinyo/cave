@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная страница!{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('wim') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+
+                <div id="app"></div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('wim') }}
+{% endblock %}
