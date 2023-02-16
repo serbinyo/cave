@@ -23,7 +23,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      *
      */
-    public const TABLE = 'user';
+    public const TABLE = 'user_data';
 
     public function __construct(ManagerRegistry $registry)
     {

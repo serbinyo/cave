@@ -12,6 +12,7 @@ use App\Entity\Wim\Domain\Aggregate\BreathingExercise;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="user_data")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

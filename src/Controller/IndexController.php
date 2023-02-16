@@ -33,7 +33,7 @@ class IndexController extends AbstractController
      * @throws \Exception
      * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      */
-    #[Route('/')]
+    #[Route('/', name: 'homepage')]
     public function index(FillUserExercises\Handler $getExercisesService, Deserializer $deserializer)
     {
         $user = $this->getUser();
