@@ -99,6 +99,12 @@ RUN set -eux; \
     fi
 
 # copy sources
+
+# Create a group and user in for alpine
+#RUN addgroup -S www && adduser -S www -G www
+#COPY --chown=www:www . /var/www
+#USER www #докрутить ошибку  can't create directory 'var/': Permission denied
+
 COPY --link  . ./
 RUN rm -Rf docker/
 RUN chmod +x bin/console
