@@ -44,3 +44,38 @@ Symfony Docker is available under the MIT License.
 ## Credits
 
 Created by [Kévin Dunglas](https://dunglas.fr), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+
+## Add webpack-encore-bundle to project
+
+Put a docker-compose.yaml file in the root of your project containing:
+
+version: "3"
+
+services:
+app:
+image: php:7.2-alpine
+volumes:
+- .:/app
+ports:
+- "${APP_PORT:-8000}:8000"
+working_dir: /app
+command: ["bin/console", "server:run", "0.0.0.0"]
+
+    encore:
+        image: node:10-alpine
+        volumes:
+            - .:/app
+        ports:
+            - "${DEV_SERVER_PORT:-8080}:8080"
+        working_dir: /app
+        command: ["yarn", "dev-server", "--host=0.0.0.0"]
+
+
+To start your Symfony app + Encore dev server:
+docker-compose up
+
+To stop your Symfony app + Encore dev server:
+docker-compose down
+
+To build your assets for production:
+docker-compose run --rm encore yarn build
