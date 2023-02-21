@@ -46,7 +46,9 @@ export default {
         GET_CONVERSATIONS: ({commit}) => {
             return fetch(`/conversations`)
                 .then(result => {
-                    const hubUrl = result.headers.get('Link').match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1]
+                  console.log(window.location.protocol + "//" + window.location.host)
+                    //const hubUrl = result.headers.get('Link').match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1]
+                    const hubUrl = window.location.protocol + "//" + window.location.host + '/.well-known/mercure';
                     commit("SET_HUBURL", hubUrl)
                     return result.json()
                 })
