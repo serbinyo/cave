@@ -265,7 +265,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setBreathingExercises(ArrayCollection $breathingExercises): self
     {
-
         $this->breathingExercises = $breathingExercises;
 
         return $this;
@@ -274,5 +273,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return 'id:' . $this->id . ' ' . $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserStatus()
+    {
+        $status = 'Аноним';
+        if (array_search(self::ROLE_ADMIN, $this->roles)) {
+            $status = 'Админ';
+        } elseif (array_search(self::ROLE_USER, $this->roles)) {
+            $status = 'Участник';
+        }
+
+        return $status;
     }
 }
