@@ -4,33 +4,59 @@ declare(strict_types=1);
 
 namespace App\Controller\Personal;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 /**
  *
  */
 class PersonalController extends AbstractController
 {
-    private Environment $twig;
-
     /**
-     * ConferenceController constructor.
+     * @var ManagerRegistry
      */
-    public function __construct(Environment $twig)
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
     {
-        $this->twig = $twig;
+        $this->doctrine = $doctrine;
     }
 
     /**
      * @return Response
      */
     #[Route('/profile', name: 'profile')]
-    public function index()
+    public function index(Request $request)
     {
-        $response = $this->render('profile/account.html.twig');
+        $user = $this->getUser();
+
+        $form = $this->createFormBuilder($user)
+            ->add('email', EmailType::class)
+            ->add(
+                'name',
+                TextType::class,
+                ['label' => 'Имя пользователя']
+            )
+            ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Save
+            $em = $this->doctrine->getManager();
+            $em->persist($user);
+            $em->flush();
+        }
+
+        $response = $this->render('profile/account.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
 
         return $response;
     }
