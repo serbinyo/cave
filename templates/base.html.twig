@@ -190,7 +190,7 @@
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
                         <span class="lh-1 me-3">
-                            {{ app.user.name }}
+                            {% if app.user %}{{ app.user.name }}{% endif %}
                         </span>
 
                         <!-- User -->
