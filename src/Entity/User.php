@@ -57,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $avatar;
+    private ?string $avatar;
 
     /**
      * @var string
@@ -296,15 +296,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getAvatar()
+    public function getAvatar(): string
     {
-        return $this->avatar;
+        $avatar = '/avatar.jpg';
+        if ((string)$this->avatar !== '') {
+            $avatar = $this->avatar;
+        };
+
+        return $avatar;
     }
 
     /**
-     * @param mixed $avatar
+     * @param string $avatar
      */
     public function setAvatar($avatar): void
     {
