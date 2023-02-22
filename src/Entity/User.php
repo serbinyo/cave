@@ -55,6 +55,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -288,5 +293,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param mixed $avatar
+     */
+    public function setAvatar($avatar): void
+    {
+        $this->avatar = $avatar;
     }
 }
